@@ -1,6 +1,5 @@
-import { openDb } from '../src/configDB.js';
-
-import express from 'express';
+import { openDb } from '../../db/config/configDB.js';
+import { criarTabelas } from '../controller/criarTabelas.js';
 import bodyParser  from 'body-parser';
 // import { db } from '../config/dbConnection.js'
 
@@ -15,6 +14,7 @@ const port = 3000;
 // const EXCLUIR_USUARIO = 'DELETE FROM usuarios WHERE id = ?';
 
 openDb();
+criarTabelas();
 
 // app.use(bodyParser.json());
 
