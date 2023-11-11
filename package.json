@@ -9,6 +9,6 @@
   },
   "type": "module",
   "scripts": {
-    "api": "/api/routes/app.js"
+    "api": "node ./api/app.js"
   }
 }
