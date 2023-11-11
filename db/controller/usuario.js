@@ -8,9 +8,21 @@ export default async function createTable() {
             email STRING, 
             senha STRING,
             telefone STRING,
-            cpf STRING
+            cpf STRING,
+            endereco INTEGER,
+            FOREIGN KEY (endereco) REFERENCES Endereco(id)
             )`
         );
+        db.exec(`CREATE TABLE IF NOT EXISTS Endereco (
+            id INTEGER PRIMARY KEY NOT NULL,
+            bairro STRING,
+            cep STRING,
+            logradouro STRING,
+            numero INTEGER,
+            complemento STRING,
+            cidade STRING,
+            estado STRING
+            )`);
         console.log('Tabela criada');
     });
 }
