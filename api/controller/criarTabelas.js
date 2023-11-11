@@ -1,6 +1,8 @@
-import createTable from "../../db/controller/usuario.js";
+import criarTabelaUsuarios from "../../db/controller/usuarios.js";
+import criarTabelaEnderecos from "../../db/controller/enderecos.js";
 
 export async function criarTabelas() {
-    createTable();
+    await criarTabelaEnderecos();
+    await criarTabelaUsuarios();
 }
 

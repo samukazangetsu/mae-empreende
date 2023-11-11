@@ -1,12 +1,7 @@
-import { openDb } from '../../db/config/configDB.js';
-import { criarTabelas } from '../controller/criarTabelas.js';
 import express from 'express';
-import bodyParser  from 'body-parser';
-// import { db } from '../config/dbConnection.js'
 
 const app = express();
-app.use(express.json())
-const port = 3000;
+app.use(express.json());
 
 // consultas sql de exemplo
 // const LISTAR_USUARIO = 'SELECT * FROM usuarios WHERE id = ?';
@@ -14,8 +9,6 @@ const port = 3000;
 // const ATUALIZAR_USUARIO = 'UPDATE usuarios SET ? WHERE id = ?';
 // const EXCLUIR_USUARIO = 'DELETE FROM usuarios WHERE id = ?';
 
-openDb();
-criarTabelas();
 
 // app.use(bodyParser.json());
 
@@ -56,6 +49,3 @@ criarTabelas();
 // });
 
 
-app.listen(port, () => {
-  console.log(`Node rodando na seguinte porta: ${port}`);
-});
