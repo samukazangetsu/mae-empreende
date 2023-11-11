@@ -1,5 +1,6 @@
 import { openDb } from '../../db/config/configDB.js';
 import { criarTabelas } from '../controller/criarTabelas.js';
+import express from 'express';
 import bodyParser  from 'body-parser';
 // import { db } from '../config/dbConnection.js'
 
