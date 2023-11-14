@@ -3,8 +3,10 @@ import express from 'express';
 const router = express();
 router.use(express.json());
 
+const root = 'web';
+
 router.get("/", function(req, res) {
-    res.send("Funcionando aqui");
+    res.sendFile('/index.html', {root: root});
 });
 
 router.get("/cadastro", function(req, res) {
