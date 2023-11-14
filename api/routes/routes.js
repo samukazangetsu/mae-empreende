@@ -1,7 +1,17 @@
 import express from 'express';
 
-const app = express();
-app.use(express.json());
+const router = express();
+router.use(express.json());
+
+router.get("/", function(req, res) {
+    res.send("Funcionando aqui");
+});
+
+router.get("/cadastro", function(req, res) {
+    res.send("Tela de cadastro");
+});
+
+export default router;
 
 // consultas sql de exemplo
 // const LISTAR_USUARIO = 'SELECT * FROM usuarios WHERE id = ?';

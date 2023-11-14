@@ -5,4 +5,3 @@ export async function criarTabelas() {
     await criarTabelaEnderecos();
     await criarTabelaUsuarios();
 }
-
