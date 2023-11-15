@@ -7,6 +7,8 @@ import router from './routes/routes.js';
 const app = express();
 app.use(express.json())
 const port = 3000;
+app.use(express.static('public'));
+app.use('/css', express.static('node_modules/bootstrap/dist/css'));
 
 openDb();
 criarTabelas();

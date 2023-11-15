@@ -10,7 +10,7 @@ router.get("/", function(req, res) {
 });
 
 router.get("/cadastro", function(req, res) {
-    res.send("Tela de cadastro");
+    res.sendFile('/cadastro/cadastro.html', {root: root});
 });
 
 export default router;
