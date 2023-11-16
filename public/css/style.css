@@ -17,6 +17,20 @@ header h1 {
     color: #FFFFFF;
 }
 
+.primary-button{
+    background-color: #EE88E1;
+    width: 50%;
+    border: 0px solid;
+    border-radius: 50px;
+}
+
+.primary-button a{
+ color: white;   
+}
+
+a:link{
+    text-decoration: none;
+}
 
 h1{
     font-size: 48px;

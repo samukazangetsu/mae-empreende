@@ -6,10 +6,11 @@ router.use(express.json());
 const root = 'web';
 
 router.get("/", function(req, res) {
-    res.sendFile('/index.html', {root: root});
+    res.redirect('/cadastro');
 });
 
 router.get("/cadastro", function(req, res) {
+    console.log('Rota cadastro acessada')
     res.sendFile('/cadastro/cadastro.html', {root: root});
 });
 
