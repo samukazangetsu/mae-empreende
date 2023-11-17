@@ -41,9 +41,17 @@ router.get("/cadastro", function (req, res) {
 });
 
 router.get("/sucesso-cadastro", function (req, res) {
-
+    console.log('Rota sucesso cadastro acessada');
     res.sendFile('/cadastro/sucesso_cadastro.html', { root: root });
 });
+
+router.get("/perfil/:id", function (req, res) {
+    console.log('Rota perfil acessada')
+    console.dir(req.params.id);
+    res.sendFile('/perfil/perfil.html', {root: root});
+}); 
+
+
 
 
 // ----------------------------------------------------------------
