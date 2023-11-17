@@ -1,3 +1,21 @@
-h1 {
-    color: blue;
+img {
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
+   top: 45%;
 }
+
+h2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50%;
+}
+
+h3 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 56%;
+}
+
