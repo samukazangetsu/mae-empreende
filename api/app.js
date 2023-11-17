@@ -14,6 +14,7 @@ openDb();
 criarTabelas();
 app.get('/', router);
 app.get('/cadastro', router);
+app.get('/sucesso-cadastro', router);
 
 app.listen(port, () => {
     console.log(`Node rodando na seguinte porta: ${port}`);

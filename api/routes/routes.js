@@ -14,6 +14,11 @@ router.get("/cadastro", function(req, res) {
     res.sendFile('/cadastro/cadastro.html', {root: root});
 });
 
+router.get("/sucesso-cadastro", function(req, res) {
+    
+    res.sendFile('/cadastro/sucesso_cadastro.html', {root: root});
+});
+
 export default router;
 
 // consultas sql de exemplo
