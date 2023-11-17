@@ -18,16 +18,16 @@
         <div></div>
     </header>
 
-    <div class="container card mt-5 mb-5">
-        <div class="formulario card-body">
-            <form action="#">
-                <div class="form-header">
+    <div class="container card mt-5 mb-5 pt-5 pb-5">
+        <div class="formulario card-body =">
+            <form action="#" class="needs-validation">
+                <div class="form-header mb-5">
                     <div class="title text-center">
                         <h1>Cadastro</h1>
                     </div>
                 </div>
     
-                <div class="container">
+                <div class="container ps-5 pe-5">
                     <div class="input-box row mt-2">
                         <input class="input-label" id="firstname" type="text" name="firstname" placeholder="Nome" required>
                    </div>
@@ -52,13 +52,15 @@
                     </div>
     
                     <div class="input-box row mt-2">
-                       
                         <input class="input-label" id="confirmpassword" type="password" name="confirmpassword" placeholder="Confirme a senha" required>
+                    </div>
+                    <div class="invalid-feedback">
+                        You must agree before submitting.
                     </div>
                 </div>
     
-                <div class="login-button text-center mt-5 mb-5">
-                    <button type="button" class="primary-button"><div class="m-2"><a href="#">Cadastrar</a></div></button>
+                <div class="login-button text-center mt-5">
+                    <button type="submit" class="primary-button"><div class="m-2"><a href="#">Cadastrar</a></div></button>
                 </div>
             </form>       
         </div>
