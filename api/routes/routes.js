@@ -2,9 +2,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { openDb } from '../../db/config/configDB.js';
 
-const router = express();
-router.use(express.json());
+const router = express.Router();
+
 router.use(bodyParser.json());
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
 const root = 'web';
 
@@ -14,21 +16,23 @@ const INSERIR_USUARIO = `
   `;
 
 const ATUALIZAR_USUARIO = `
-      UPDATE Usuarios
-      SET nome = ?, email = ?, senha = ?, telefone = ?, cpf = ?, endereco_id = ?
-      WHERE id = ?
-    `;
+  UPDATE Usuarios
+  SET nome = ?, email = ?, senha = ?, telefone = ?, cpf = ?, endereco_id = ?
+  WHERE id = ?
+`;
+
+const CHECAR_USUARIO = 'SELECT * FROM usuarios WHERE id = ?';
 
 const INSERIR_ENDERECO = `
-      INSERT INTO Enderecos (bairro, cep, logradouro, numero, complemento, cidade, estado)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `;
+    INSERT INTO Enderecos (bairro, cep, logradouro, numero, complemento, cidade, estado)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
 
-const ATUALIZAR_ENDERECO = `
-      UPDATE Enderecos
-      SET bairro = ?, cep = ?, logradouro = ?, numero = ?, complemento = ?, cidade = ?, estado = ?
-      WHERE endereco_id = ?
-    `;
+  const ATUALIZAR_ENDERECO = `
+  UPDATE Enderecos
+  SET bairro = ?, cep = ?, logradouro = ?, numero = ?, complemento = ?, cidade = ?, estado = ?
+  WHERE endereco_id = ?
+`;
 
 const LISTAR_USUARIO = `
     SELECT nome, email, telefone, cpf FROM usuarios ORDER BY nome
@@ -66,12 +70,12 @@ router.get("/perfil/:id", function (req, res) {
 }); 
 
 
-
-
 // ----------------------------------------------------------------
 // Métodos para tabela 'Usuários'
 // ----------------------------------------------------------------
 
+
+//metodo ok
 router.post('/usuarios', async (req, res) => {
     try {
         const { nome, email, senha, telefone, cpf, endereco_id } = req.body;
@@ -85,22 +89,26 @@ router.post('/usuarios', async (req, res) => {
     }
 });
 
+// metodo ok
 router.put('/usuarios/:id', async (req, res) => {
+    const { id } = req.params;
+    const { nome, email, senha, telefone, cpf, endereco_id } = req.body;
     try {
-        const idUsuario = req.params.id;
-        const { nome, email, senha, telefone, cpf, endereco_id } = req.body;
-        const db = await openDb();
-        await db.run(ATUALIZAR_USUARIO, [nome, email, senha, telefone, cpf, endereco_id, idUsuario]);
-        if (this.changes === 0) {
-            return res.status(404).send('Usuário não encontrado');
-        }
-        console.log(`Infos de usuário ${idUsuario} atualizadas`);
-        res.status(200).send('Informações do usuário atualizadas com sucesso');
+      console.log(`ID do Usuário a ser atualizado: ${id}`);
+      console.log(`Novos dados do Usuário:`, req.body);
+  
+      const db = await openDb();
+      await db.run(ATUALIZAR_USUARIO, [nome, email, senha, telefone, cpf, endereco_id, id]);
+  
+      console.log(`Usuário atualizado com sucesso.`);
+      res.status(200).json({ message: 'Usuário atualizado com sucesso.' });
     } catch (error) {
-        console.error(error.message);
-        res.status(500).send(`Erro ao atualizar usuário: ${error.message}`);
+      console.error('Erro ao atualizar usuário:', error);
+      res.status(500).json({ error: 'Erro interno do servidor.' });
     }
-});
+  });
+  
+  
 
 router.get('/usuarios', async (req, res) => {
     const db = await openDb();
@@ -167,6 +175,7 @@ router.delete('/usuarios/:id', async (req, res) => {
 // Métodos para tabela 'Endereco'
 // ---------------------------------------------------------------------------------------
 
+//metodo ok
 router.post('/enderecos', async (req, res) => {
     try {
         const { bairro, cep, logradouro, numero, complemento, cidade, estado } = req.body;
@@ -180,54 +189,23 @@ router.post('/enderecos', async (req, res) => {
     }
 });
 
+// metodo ok
 router.put('/enderecos/:id', async (req, res) => {
+    const idEndereco = req.params.id;
+    const { bairro, cep, logradouro, numero, complemento, cidade, estado } = req.body;
+
     try {
-        const idEndereco = req.params.id;
-        const { bairro, cep, logradouro, numero, complemento, cidade, estado } = req.body;
+        console.log(`Novos dados do Endereco:`, req.body);
+
         const db = await openDb();
         await db.run(ATUALIZAR_ENDERECO, [bairro, cep, logradouro, numero, complemento, cidade, estado, idEndereco]);
-        if (this.changes === 0) {
-            return res.status(404).send('Endereço não encontrado');
-        }
-        console.log(`Informações do endereço com o ID ${idEndereco} atualizadas`);
-        res.status(200).send(`Informações do endereço com o ID ${idEndereco} atualizadas`);
+
+        console.log(`Endereço atualizado com sucesso.`);
+        res.status(200).json({ message: 'Endereço atualizado com sucesso.' });
     } catch (error) {
-        console.error(error.message);
-        res.status(500).send(`Erro ao atualizar endereço: ${error.message}`);
+        console.error('Erro ao atualizar endereço:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
     }
 });
 
 export default router;
-
-/////////////////////////////////////////////////////////////////////
-// exemplo de função para cadastro (inserção de usuário na tabela) //
-// 
-/////////////////////////////////////////////////////////////////////
-/* <script>
-        function enviarUsuario() {
-            const form = document.getElementById('usuarioForm');
-            const formData = new FormData(form);
-
-            fetch('/usuarios', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(Object.fromEntries(formData)),
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao cadastrar usuário');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                alert('Usuário cadastrado');
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert('Erro ao cadastrar usuário');
-            });
-        }
-</script> */

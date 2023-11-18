@@ -3,7 +3,7 @@ import { openDb } from "../config/configDB.js";
 export default async function criarTabelaUsuario() {
     openDb().then(db => {
         db.exec(`CREATE TABLE IF NOT EXISTS Usuarios (
-            id INTEGER PRIMARY KEY NOT NULL, 
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
             nome TEXT, 
             email TEXT, 
             senha TEXT,
