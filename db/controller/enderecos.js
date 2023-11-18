@@ -4,7 +4,7 @@ export default async function criarTabelaEnderecos() {
     openDb().then(db => {
         db.exec(
             `CREATE TABLE IF NOT EXISTS Enderecos (
-            endereco_id INT PRIMARY KEY NOT NULL,
+            endereco_id INTEGER PRIMARY KEY AUTOINCREMENT,
             bairro TEXT,
             cep TEXT,
             logradouro TEXT,
