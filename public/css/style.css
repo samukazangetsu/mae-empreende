@@ -61,3 +61,15 @@ a:link{
 .cor-fundo {
     color: #E1E0E0;
 }
+
+.input-label{
+    outline: 0;
+    border-width: 0 0 1px;
+    border-color: black
+}
+
+.input-label::placeholder{
+    color: black;
+    opacity: 25%;
+    font-weight: bold;
+}

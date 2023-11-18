@@ -62,9 +62,9 @@ router.get("/sucesso-cadastro", function (req, res) {
 
 router.get("/perfil/:id", function (req, res) {
     console.log('Rota perfil acessada')
-    console.dir(req.params.id);
-    res.set('Accept', 'application/json');
-    res.json();
+    // console.dir(req.params.id);
+    // res.set('Accept', 'application/json');
+    // res.json();
     res.sendFile('/perfil/perfil.html', {root: root});
 }); 
 
