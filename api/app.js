@@ -19,6 +19,9 @@ app.get('/perfil/:id', router);
 
 app.post('/usuarios', router);
 app.put('/usuarios/:id', router);
+app.get('/usuarios', router);
+app.get('/usuarios/:id', router);
+app.delete('/usuarios/:id', router);
 app.post('/enderecos', router);
 app.put('/enderecos/:id', router);
 
