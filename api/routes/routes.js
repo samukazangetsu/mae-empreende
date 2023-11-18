@@ -30,6 +30,17 @@ const ATUALIZAR_ENDERECO = `
       WHERE endereco_id = ?
     `;
 
+const LISTAR_USUARIO = `
+    SELECT nome, email, telefone, cpf FROM usuarios ORDER BY nome
+`;
+
+const LISTAR_USUARIO_POR_ID = `
+    SELECT nome, email, telefone, cpf FROM usuarios WHERE id = ?;
+`;
+
+const EXCLUIR_USUARIO = `
+    DELETE FROM usuarios WHERE id = ?;
+`;
 
 router.get("/", function (req, res) {
     res.redirect('/cadastro');
@@ -91,22 +102,66 @@ router.put('/usuarios/:id', async (req, res) => {
     }
 });
 
-// listar todos os usuários
-// app.get('/users/:id', (req, res) => {
-//   db.query(LISTAR_USUARIO, (err, result) => {
-//     if (err) throw err;
-//     res.json(result);
-//   });
-// });
+router.get('/usuarios', async (req, res) => {
+    const db = await openDb();
+    await db.all(LISTAR_USUARIO)
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((err) => {
+            console.error("Erro ao consultar o banco de dados:", err);
+            res.status(500).send("Erro interno do servidor.");
+        });
+});
 
-// excluir um usuário
-// app.delete('/users/:id', (req, res) => {
-//   const userId = req.params.id;
-//   db.query(EXCLUIR_USUARIO, userId, (err, result) => {
-//     if (err) throw err;
-//     res.json({ message: 'Usuário excluído com sucesso' });
-//   });
-// });
+router.get('/usuarios/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    if (isNaN(userId)) {
+        res.status(400).send('Id fornecido é inválido.');
+        return;
+    }
+
+    const db = await openDb();
+
+    await db.get(LISTAR_USUARIO_POR_ID, [userId])
+        .then((result) => {
+            if (result) {
+                res.json(result);
+            } else {
+                res.status(404).send("Usuário não encontrado.");
+            }
+        })
+        .catch((err) => {
+            console.error("Erro ao consultar o banco de dados:", err);
+            res.status(500).send("Erro interno do servidor.");
+        })
+});
+
+router.delete('/usuarios/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    if (isNaN(userId)) {
+        res.status(400).send('Id fornecido é inválido.');
+        return;
+    }
+
+    const db = await openDb();
+
+    await db.run(EXCLUIR_USUARIO, [userId])
+        .then((result) => {
+            if (result.changes > 0) {
+                res.status(200).send("Usuário excluído com sucesso.");
+            } else {
+                res.status(404).send("Usuário não encontrado.");
+            }
+        })
+        .catch((err) => {
+            console.error("Erro na exclusão do usuário:", err);
+            res.status(500).send("Erro interno do servidor.");
+        })
+});
+
 
 // ---------------------------------------------------------------------------------------
 // Métodos para tabela 'Endereco'

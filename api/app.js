@@ -19,6 +19,9 @@ app.get('/perfil/:id', router);
 
 app.post('/usuarios', router);
 app.post('/enderecos', router);
+app.get('/usuarios', router);
+app.get('/usuarios/:id', router);
+app.delete('/usuarios/:id', router);
 
 app.listen(port, () => {
     console.log(`Node rodando na seguinte porta: ${port}`);
