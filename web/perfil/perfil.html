@@ -167,7 +167,6 @@
                     input.value = arr[input.id] ?? '';
                 }
                 document.getElementById("nome-principal").innerHTML = arr['nome'];
-
             }
         }
         getJson();    
@@ -204,6 +203,7 @@
 
             await enviarData(inputsEndereco, urlEndereco);
             await enviarData(inputsUsuario, urlUsuario);
+            window.alert("Dados atualizados com sucesso!");
         }
     </script>
 </body>
