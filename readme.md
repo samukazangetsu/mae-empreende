@@ -32,7 +32,7 @@ Após isso, ainda na raiz do projeto, rode o seguinte comando:
 
 *npm run api*
 
-Esse comando irá iniciar o projeto localmente na porta 3000.
+Esse comando irá iniciar o projeto localmente na porta 3000 e criar o banco de dados.
 
 Para acessar o site, basta digitar a seguinte url na barra de pesquisa do navegador:
 
