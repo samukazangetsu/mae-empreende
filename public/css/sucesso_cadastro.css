@@ -1,8 +1,8 @@
 img {
-   position: absolute;
-   left: 50%;
-   transform: translateX(-50%);
-   top: 45%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 45%;
 }
 
 h2 {
@@ -18,4 +18,3 @@ h3 {
     transform: translateX(-50%);
     top: 56%;
 }
-
