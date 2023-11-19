@@ -76,12 +76,15 @@ router.get("/perfil/:id", function (req, res) {
 
 //metodo ok
 router.post('/usuarios', async (req, res) => {
+    console.log(req.body);
     try {
-        const { nome, email, senha, telefone, cpf, endereco_id } = req.body;
+        const { email, cpf, password, } = req.body;
+        const nome = req.body['firstname'] + ' ' + req.body['lastname'];
+        console.log(email, cpf, password, nome);
         const db = await openDb();
-        await db.run(INSERIR_USUARIO, [nome, email, senha, telefone, cpf, endereco_id]);
+        await db.run(INSERIR_USUARIO, [nome, email, password, null, cpf]);
         console.log(`Usuário inserido com sucesso`);
-        res.status(201).send(`Usuário inserido com sucesso`);
+        res.redirect('/sucesso-cadastro');
     } catch (error) {
         console.error(error.message);
         res.status(500).send(`Erro ao inserir usuário: ${error.message}`);

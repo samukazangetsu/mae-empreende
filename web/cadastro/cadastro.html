@@ -36,7 +36,7 @@
 
     <div class="container card mt-5 mb-5 pt-5 pb-5">
         <div class="formulario card-body =">
-            <form action="#" class="needs-validation">
+            <form onsubmit="return true" action="/usuarios" method="POST" class="needs-validation">
                 <div class="form-header mb-5">
                     <div class="title text-center">
                         <h1>Cadastro</h1>
@@ -76,10 +76,35 @@
                 </div>
     
                 <div class="login-button text-center mt-5">
-                    <button type="submit" class="primary-button"><div class="m-2"><a href="#">Cadastrar</a></div></button>
+                    <button type="submit" onclick="realizarCadastro()"  class="primary-button"><div class="m-2"><span>Cadastrar</span></div></button>
                 </div>
             </form>       
         </div>
     </div>
+    <footer>
+        <script>
+            function realizarCadastro() {
+                
+                var forms = document.getElementsByClassName('needs-validation');
+               
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');            
+                }, false);
+                if(validation != false){
+                    const formData = new FormData(validation.elements);
+                    const data = Array.from(formData.entries()).reduce((memo, [key, value]) => ({
+                        ...memo,
+                        [key]: value,
+                    }), {});
+                    console.log(JSON.stringify(data));    
+                    forms.submit();
+                }              
+            }
+        </script>
+    </footer>
 </body>
 </html>
