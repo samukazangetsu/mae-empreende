@@ -40,15 +40,7 @@
     <h2>Cadastro efetuado!</h2>
     <h3>Redirecionando para área logada</h3>
     <script>
-        (function() {
-            'use strict';
-            window.addEventListener('load', async function() {
-            const delay = ms => new Promise(res => setTimeout(res, ms));
-            await delay(3000);
-           
-            await window.fetch('localhost:3000/perfil');
-            })();
-        });
+        setTimeout(() => window.location.href = '/perfil', 3000);        
     </script>
 </body>
 

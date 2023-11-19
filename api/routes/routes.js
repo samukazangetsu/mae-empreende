@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { openDb } from '../../db/config/configDB.js';
+import app from '../app.js';
+
 
 const router = express.Router();
 
@@ -55,12 +57,12 @@ router.get("/cadastro", function (req, res) {
     res.sendFile('/cadastro/cadastro.html', { root: root });
 });
 
-router.get("/sucesso-cadastro", function (req, res) {
+router.get("/sucesso-cadastro", async function (req, res)  {
     console.log('Rota sucesso cadastro acessada');
     res.sendFile('/cadastro/sucesso_cadastro.html', { root: root });
 });
 
-router.get("/perfil/:id", function (req, res) {
+router.get("/perfil", function (req, res) {
     console.log('Rota perfil acessada')
     // console.dir(req.params.id);
     // res.set('Accept', 'application/json');
@@ -82,7 +84,8 @@ router.post('/usuarios', async (req, res) => {
         const nome = req.body['firstname'] + ' ' + req.body['lastname'];
         console.log(email, cpf, password, nome);
         const db = await openDb();
-        await db.run(INSERIR_USUARIO, [nome, email, password, null, cpf]);
+        var id = (await db.run(INSERIR_USUARIO, [nome, email, password, null, cpf])).lastID;
+        app.locals.id = id;
         console.log(`Usuário inserido com sucesso`);
         res.redirect('/sucesso-cadastro');
     } catch (error) {

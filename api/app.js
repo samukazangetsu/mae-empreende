@@ -15,7 +15,7 @@ criarTabelas();
 app.get('/', router);
 app.get('/cadastro', router);
 app.get('/sucesso-cadastro', router);
-app.get('/perfil/:id', router);
+app.get('/perfil', router);
 
 app.post('/usuarios', router);
 app.put('/usuarios/:id', router);
@@ -28,3 +28,5 @@ app.put('/enderecos/:id', router);
 app.listen(port, () => {
     console.log(`Node rodando na seguinte porta: ${port}`);
 });
+
+export default app;
