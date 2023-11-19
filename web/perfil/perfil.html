@@ -68,11 +68,11 @@
         </div>
         <div class="container mt-5">
             <form id="profileForm">
-              <input class="input-label m-4" type="text" id="fullName" placeholder="Nome Completo" required>
+              <input class="input-label m-4" type="text" id="nome" placeholder="Nome Completo" required>
         
               <input class="input-label m-4" type="text" id="cpf" placeholder="CPF" required>
         
-              <input class="input-label m-4" type="text" id="phone" placeholder="Número do Celular" required>
+              <input class="input-label m-4" type="text" id="telefone" placeholder="Número do Celular" required>
         
               <input class="input-label m-4" type="text" id="cep" placeholder="CEP" required>
         
@@ -96,5 +96,35 @@
             </form>
         </div>
     </div>
+    <script>
+        const getJson = function(){
+            var xmlhttp = new XMLHttpRequest();
+            var url = "/usuarios";
+
+            xmlhttp.open('GET', url, true);
+            xmlhttp.responseType = 'json';
+            xmlhttp.onload = function(){
+                var status = xmlhttp.status;
+                if(status === 200){
+                    atualizarCampos(xmlhttp.response);
+                } else {
+                    console.log(status, xmlhttp.response);
+                }
+            }
+            xmlhttp.send();
+
+            function atualizarCampos(arr) {
+                const inputs = document.getElementsByClassName("input-label");
+
+                console.log(inputs);
+                for (const input of inputs) {
+                    console.log(input);
+                    input.value = arr[input.id] ?? '';
+                }
+            }
+        }
+
+        getJson();    
+    </script>
 </body>
 </html>

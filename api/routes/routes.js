@@ -63,10 +63,8 @@ router.get("/sucesso-cadastro", async function (req, res)  {
 });
 
 router.get("/perfil", function (req, res) {
-    console.log('Rota perfil acessada')
-    // console.dir(req.params.id);
-    // res.set('Accept', 'application/json');
-    // res.json();
+    console.log('Rota perfil acessada');
+    res.set('Accept', 'application/json');
     res.sendFile('/perfil/perfil.html', {root: root});
 }); 
 
@@ -93,38 +91,26 @@ router.post('/usuarios', async (req, res) => {
         res.status(500).send(`Erro ao inserir usuário: ${error.message}`);
     }
 });
-
-// metodo ok
-router.put('/usuarios/:id', async (req, res) => {
-    const { id } = req.params;
-    const { nome, email, senha, telefone, cpf, endereco_id } = req.body;
-    try {
-      console.log(`ID do Usuário a ser atualizado: ${id}`);
-      console.log(`Novos dados do Usuário:`, req.body);
   
-      const db = await openDb();
-      await db.run(ATUALIZAR_USUARIO, [nome, email, senha, telefone, cpf, endereco_id, id]);
-  
-      console.log(`Usuário atualizado com sucesso.`);
-      res.status(200).json({ message: 'Usuário atualizado com sucesso.' });
-    } catch (error) {
-      console.error('Erro ao atualizar usuário:', error);
-      res.status(500).json({ error: 'Erro interno do servidor.' });
-    }
-  });
-  
-  
-
 router.get('/usuarios', async (req, res) => {
+    const userId = app.locals.id;
+    if (isNaN(userId)) {
+        res.redirect('/cadastro');
+        return;
+    }
     const db = await openDb();
-    await db.all(LISTAR_USUARIO)
-        .then((result) => {
+    await db.get(LISTAR_USUARIO_POR_ID, [userId])
+    .then((result) => {
+        if (result) {
             res.json(result);
-        })
-        .catch((err) => {
-            console.error("Erro ao consultar o banco de dados:", err);
-            res.status(500).send("Erro interno do servidor.");
-        });
+        } else {
+            res.status(404).send("Usuário não encontrado.");
+        }
+    })
+    .catch((err) => {
+        console.error("Erro ao consultar o banco de dados:", err);
+        res.status(500).send("Erro interno do servidor.");
+    });
 });
 
 router.get('/usuarios/:id', async (req, res) => {
