@@ -51,6 +51,7 @@ router.post('/usuario', async (req, res) => {
         const db = await openDb();
         const userID = (await db.run(queries.INSERIR_USUARIO, [nome, email, senha, null, cpf])).lastID;
         app.locals.userID = userID;
+        app.locals.enderecoID = undefined;
         console.log(`Usuário inserido com sucesso`);
         res.redirect('/sucesso-cadastro');
     } catch (error) {
