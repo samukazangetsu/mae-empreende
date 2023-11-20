@@ -136,7 +136,7 @@
     </div>
     <script>
         const getJson = function () {
-            const buscarData = function (url, inputs) {
+            const buscarData = function (url, inputs, atualizarNome) {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.open('GET', url, true);
                 xmlhttp.responseType = 'json';
@@ -144,6 +144,9 @@
                     var status = xmlhttp.status;
                     if (status === 200) {
                         atualizarCampos(xmlhttp.response, inputs);
+                        if(atualizarNome){
+                            document.getElementById("nome-principal").innerHTML = xmlhttp.response['nome'];
+                        }
                     } else {
                         console.log(status, xmlhttp.response);
                     }
@@ -156,9 +159,10 @@
 
             const inputsUsuario = document.getElementsByClassName("input-label-usuario");
             const inputsEndereco = document.getElementsByClassName("input-label-endereco");
+            
 
-            buscarData(url, inputsUsuario);
-            buscarData(urlEndereco, inputsEndereco);
+            buscarData(url, inputsUsuario, true);
+            buscarData(urlEndereco, inputsEndereco, false);
 
 
 
@@ -166,7 +170,6 @@
                 for (const input of inputs) {
                     input.value = arr[input.id] ?? '';
                 }
-                document.getElementById("nome-principal").innerHTML = arr['nome'];
             }
         }
         getJson();    
