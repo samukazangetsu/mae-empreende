@@ -4,7 +4,7 @@
 </p>
 
 # Descrição do Projeto
-Mãe Empreende é um projeto realizado pelos alunos do 4° Semestre do Curso de Análise e Desenvolvimento de Sistemas Edson, Roner, Soane, Rodrigo, Roseane, Sabrina e Samuel.
+Mãe Empreende é um projeto realizado pelos alunos do 4° Semestre do Curso de Análise e Desenvolvimento de Sistemas Edson, Roner, Soane, Rodrigo, Roseane, Sabrina e Samuel (Grupo 09).
 Esse projeto visa colocar em prática os conteúdos aprendidos durante o curso que incluem, porém não se limitam a:
 * Banco de dados
 * Arquitetura de Software
