@@ -162,4 +162,54 @@ router.get('/endereco', async (req, res) => {
     }
 });
 
+// ---------------------------------------------------------------------------------------
+// Métodos para tabela 'Produto'
+// ---------------------------------------------------------------------------------------
+
+//metodo ok
+router.post('/produto', async (req, res) => {
+    const { nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero } = req.body;
+    try {
+        const db = await openDb();
+        const produtoID = (await db.run(queries.INSERIR_PRODUTO, [nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero])).lastID;
+        console.log(`Produto inserido com sucesso`);
+        res.status(201).send(`Produto inserido com sucesso`);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send(`Erro ao inserir produto: ${error.message}`);
+    }
+});
+
+//metodo ok
+router.put('/produto/:id', async (req, res) => {
+    const { nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero } = req.body;
+    const { id } = req.params;
+    try {
+        const db = await openDb();
+        await db.run(queries.ATUALIZAR_PRODUTO, [nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero, id]);
+        console.log(`Produto atualizado com sucesso`);
+        res.status(200).send(`Produto atualizado com sucesso`);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send(`Erro ao atualizar produto: ${error.message}`);
+    }
+});
+
+//metodo ok
+router.get('/produto/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const db = await openDb();
+        const produto = await db.get(queries.LISTAR_PRODUTO_POR_ID, [id]);
+        if (produto) {
+            res.json(produto);
+        } else {
+            res.status(404).send("Produto não encontrado.");
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send(`Erro ao obter produto: ${error.message}`);
+    }
+});
+
 export default router;
