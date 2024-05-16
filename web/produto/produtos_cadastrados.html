@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <nav class="navbar text-start">
+        <div id="menu" class="ms-5 me-5 p-2 container-fluid">
+            <h1 class="text-start nav-item"><a id="logo" href="/" class="navbar-brand">Mãe Empreende</a></h1>
+            <form id="search" class="nav-item">
+                <input class="form-control me-2 container" type="search" placeholder="Buscar produtos"
+                    aria-label="Search">
+            </form>
+            
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>PRODUTOS CADASTRADOS</h2>
+        <!-- Repita este bloco para cada produto -->
+        <div class="produto-card">
+          <div class="produto-info">
+            <div class="img produto-imagem" >
+                <img width="150" src="assets\lelouch.jpg" alt="">
+            </div>
+            <div>
+              <p>Preço R$ 15,00</p>
+              <span class="produto-acoes">Alterar Nome</span>
+              <span class="produto-acoes">Alterar Informações</span>
+              <span class="produto-acoes">Deletar Produto</span>
+            </div>
+          </div>
+        </div>
+        <!-- Fim do bloco de produto -->
+      </div>
+    <footer>
+        <script>
+            function cadastrarProduto() {
+
+                var forms = document.getElementsByClassName('needs-validation');
+
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+                if (validation != false) {
+                    const formData = new FormData(validation.elements);
+                    const data = Array.from(formData.entries()).reduce((memo, [key, value]) => ({
+                        ...memo,
+                        [key]: value,
+                    }), {});
+                    console.log(JSON.stringify(data));
+                    forms.submit();
+                }
+            }
+        </script>
+    </footer>
+</body>
+
+</html>

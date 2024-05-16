@@ -50,6 +50,25 @@ nav {
     color: white;
 }
 
+.secondary-button {
+    background-color: white;
+    width: 50%;
+    border: 0px solid;
+    border-radius: 50px;
+}
+
+.secondary-button span {
+    color: #EE88E1;
+}
+
+.btn-pink {
+    background-color: #ff69b4;
+    color: white;
+}
+  
+
+
+
 a:link {
     text-decoration: none;
 }

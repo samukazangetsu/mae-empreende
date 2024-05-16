@@ -26,6 +26,14 @@ app.get('/endereco', router);
 app.post('/endereco', router);
 app.put('/endereco/', router);
 
+app.get('/produto', router);
+app.post('/produto', router);
+app.put('/produto', router);
+
+app.use('/', router);
+app.get('/cadastro-produto', router);
+app.get('/produtos-cadastrados', router);
+
 app.listen(port, () => {
     console.log(`Node rodando na seguinte porta: ${port}`);
 });

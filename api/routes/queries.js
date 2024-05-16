@@ -37,6 +37,22 @@ WHERE endereco_id = ?
 
   EXCLUIR_USUARIO: `
   DELETE FROM usuarios WHERE id = ?;
-`
+`,
+
+  INSERIR_PRODUTO: `
+  INSERT INTO Produtos (nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+`,
+
+  ATUALIZAR_PRODUTO: `
+  UPDATE Produtos
+  SET nome = ?, imagem = ?, preco = ?, idUsuario = ?, tamanho = ?, cor = ?, tempoUso = ?, genero = ?
+  WHERE id = ?
+`,
+
+  LISTAR_PRODUTO_POR_ID: `
+  SELECT nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero FROM Produtos WHERE id = ?;
+`,
+
 };
 
