@@ -13,6 +13,7 @@ app.use('/css', express.static('node_modules/bootstrap/dist/css'));
 openDb();
 criarTabelas();
 app.get('/', router);
+app.get('/home', router);
 app.get('/cadastro', router);
 app.get('/sucesso-cadastro', router);
 

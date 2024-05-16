@@ -17,6 +17,11 @@ router.get("/", function (req, res) {
     res.redirect('/cadastro');
 });
 
+router.get("/home", function (req, res) {
+    console.log('Rota home acessada')
+    res.sendFile('/home/home.html',{root:root});
+});
+
 router.get("/cadastro", function (req, res) {
     console.log('Rota cadastro acessada')
     res.sendFile('/cadastro/cadastro.html', { root: root });
