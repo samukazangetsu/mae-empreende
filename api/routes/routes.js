@@ -212,4 +212,22 @@ router.get('/produto/:id', async (req, res) => {
     }
 });
 
+router.get("/cadastro-produto", function (req, res) {
+    console.log('Rota cadastro produto acessada');
+    res.set('Accept', 'application/json');
+    if (app.locals.userID === undefined) {
+        return res.redirect("/cadastro");
+    }
+    res.sendFile('/produto/cadastro_produto.html', { root: root });
+});
+
+router.get("/produtos", function (req, res) {
+    console.log('Rota de produtos cadastrados acessada');
+    res.set('Accept', 'application/json');
+    if (app.locals.userID === undefined) {
+        return res.redirect("/cadastro");
+    }
+    res.sendFile('/produto/produtos_cadastrados.html', { root: root });
+});
+
 export default router;
