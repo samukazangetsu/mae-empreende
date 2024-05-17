@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mãe Empreende</title>
-    <!--Bootstrap CSS-->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -47,92 +46,122 @@
                 </div>
             </div>
         </nav>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="caminho-para-imagem1.jpg" class="card-img-top" alt="Sapatinho de bebê">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de bebê</h5>
-                        <p class="card-text">R$25.00</p>
-                        <button class="primary-button">COMPRAR</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="caminho-para-imagem2.jpg" class="card-img-top" alt="Sapatinho de bebê">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de bebê</h5>
-                        <p class="card-text">R$35.00</p>
-                        <button class="primary-button">COMPRAR</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="caminho-para-imagem3.jpg" class="card-img-top" alt="Sapatinho de bebê">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de bebê</h5>
-                        <p class="card-text">R$35.00</p>
-                        <button class="primary-button">COMPRAR</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="caminho-para-imagem4.jpg" class="card-img-top" alt="Sapatinho de bebê">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de bebê</h5>
-                        <p class="card-text">R$35.00</p>
-                        <button class="primary-button">COMPRAR</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="caminho-para-imagem5.jpg" class="card-img-top" alt="Sapatinho de bebê">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de bebê</h5>
-                        <p class="card-text">R$35.00</p>
-                        <button class="primary-button">COMPRAR</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="caminho-para-imagem6.jpg" class="card-img-top" alt="Sapatinho de bebê">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de bebê</h5>
-                        <p class="card-text">R$35.00</p>
-                        <button class="primary-button">COMPRAR</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="caminho-para-imagem7.jpg" class="card-img-top" alt="Sapatinho de bebê">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de bebê</h5>
-                        <p class="card-text">R$35.00</p>
-                        <button class="primary-button">COMPRAR</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="caminho-para-imagem8.jpg" class="card-img-top" alt="Sapatinho de bebê">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de bebê</h5>
-                        <p class="card-text">R$35.00</p>
-                        <button class="primary-button">COMPRAR</button>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="linha">
         </div>
     </div>
-    <!--Bootstrap-->
+    <script>
+        const buscarData = function () {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open('GET','/produtos', true);
+                xmlhttp.responseType = 'json';
+                xmlhttp.onload = function () {
+                    var status = xmlhttp.status;
+                    if (status === 200) {
+                        atualizarCampos(xmlhttp.response, inputs);
+                        if(atualizarNome){
+                            document.getElementById("nome-principal").innerHTML = xmlhttp.response['nome'];
+                        }
+                    } else {
+                        console.log(status, xmlhttp.response);
+                    }
+                }
+                xmlhttp.send();
+            }
+
+        var url = "/usuario";
+            var urlEndereco = "/endereco";
+
+            const inputsUsuario = document.getElementsByClassName("input-label-usuario");
+            const inputsEndereco = document.getElementsByClassName("input-label-endereco");
+
+
+            buscarData(url, inputsUsuario, true);
+            buscarData(urlEndereco, inputsEndereco, false);
+
+
+
+            function atualizarCampos(arr, inputs) {
+                for (const input of inputs) {
+                    input.value = arr[input.id] ?? '';
+                }
+
+            }
+            var json =[
+  {
+    "id": 1,
+    "nome": "Camiseta Esportiva",
+    "imagem": "https://th.bing.com/th/id/R.3734afa520bcd0f80cedccee7e98625f?rik=Qf0DRz9uBMyzDw&riu=http%3a%2f%2fsearchengineland.com%2ffigz%2fwp-content%2fseloads%2f2014%2f07%2fgoogle-logo-black-fade-1920-800x450.jpg&ehk=sVC8eg9%2f5lHpG7BaSfuSZQGJLbfDfVyF%2fmK83h8TMq0%3d&risl=&pid=ImgRaw&r=0",
+    "preco": 59.99,
+    "idUsuario": 101,
+    "tamanho": "M",
+    "cor": "azul",
+    "tempoUso": "3 meses",
+    "genero": "unissex"
+  },
+  {
+    "id": 2,
+    "nome": "Tênis de Corrida",
+    "imagem": "url_da_imagem_tenis",
+    "preco": 120.00,
+    "idUsuario": 102,
+    "tamanho": "42",
+    "cor": "preto",
+    "tempoUso": "6 meses",
+    "genero": "masculino"
+  },
+  {
+    "id": 3,
+    "nome": "Relógio Inteligente",
+    "imagem": "url_da_imagem_relogio",
+    "preco": 199.90,
+    "idUsuario": 103,
+    "tamanho": "único",
+    "cor": "prata",
+    "tempoUso": "1 ano",
+    "genero": "feminino"
+  }
+];
+
+        function criarCard(produto){
+            console.log("aqui");
+            var card = document.createElement("div");
+            card.className = "col-md-3";
+            var card2 = document.createElement("div");
+            card2.className = "card mb-4";
+            card.appendChild(card2);
+            var img = document.createElement("img");
+            img.className = "card-img-top";
+            img.src = produto["imagem"];
+            img.style.backgroundSize = "contain";
+            card2.appendChild(img);
+            var cardBody = document.createElement("div");
+            cardBody.className = "car-body text-center";
+            var desc = document.createElement("h5");
+            desc.className = "card-title";
+            desc.textContent = produto["nome"];
+            var price = document.createElement("p");
+            price.className = "card-text d-flex justify-content-center";
+            price.textContent = produto["preco"];
+            price.style.color = "#84B6F4";
+            var button = document.createElement("button");
+            button.className = "primary primary-button ";
+            button.textContent = "COMPRAR";
+            button.style.color = "white";
+            button.type="button";
+            card2.appendChild(cardBody);
+            cardBody.appendChild(desc);
+            cardBody.appendChild(price);
+            cardBody.appendChild(button);
+            var row = document.getElementById("linha");
+            row.appendChild(card);
+        }
+        json.forEach(element => {
+            criarCard(element);
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
