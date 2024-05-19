@@ -1,37 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mãe Empreende</title>
-    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Mãe Empreende</a>
-    </nav>
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="caminho-da-imagem-dos-sapatinhos.jpg" alt="Sapatinhos de bebê" class="img-fluid">
+<body>
+    <div class="container">
+        <nav class="navbar text-start">
+            <div id="menu" class="ms-5 me-5 p-2 container-fluid">
+                <h1 class="text-start nav-item"><a id="logo" href="/" class="navbar-brand">Mãe Empreende</a></h1>
+                <form id="search" class="nav-item">
+                    <input class="form-control me-2 container" type="search" placeholder="Buscar produtos"
+                        aria-label="Search">
+                </form>
+                <div id="icones" class="nav-item container">
+                    <a href="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+                            <path
+                                d="M29.1667 30.625V27.7083C29.1667 26.1612 28.5521 24.6775 27.4582 23.5835C26.3642 22.4896 24.8805 21.875 23.3334 21.875H11.6667C10.1196 21.875 8.63588 22.4896 7.54192 23.5835C6.44796 24.6775 5.83337 26.1612 5.83337 27.7083V30.625"
+                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M17.5 16.0417C20.7216 16.0417 23.3333 13.43 23.3333 10.2083C23.3333 6.98667 20.7216 4.375 17.5 4.375C14.2783 4.375 11.6666 6.98667 11.6666 10.2083C11.6666 13.43 14.2783 16.0417 17.5 16.0417Z"
+                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                    <a href="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none"
+                            class="ms-3">
+                            <path
+                                d="M10.0907 26C10.7183 26 11.2271 25.467 11.2271 24.8095C11.2271 24.152 10.7183 23.619 10.0907 23.619C9.46311 23.619 8.95435 24.152 8.95435 24.8095C8.95435 25.467 9.46311 26 10.0907 26Z"
+                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M22.5905 26C23.2181 26 23.7268 25.467 23.7268 24.8095C23.7268 24.152 23.2181 23.619 22.5905 23.619C21.9629 23.619 21.4541 24.152 21.4541 24.8095C21.4541 25.467 21.9629 26 22.5905 26Z"
+                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M1 1H5.54545L8.59091 16.9405C8.69482 17.4886 8.97944 17.9809 9.39494 18.3313C9.81044 18.6817 10.3303 18.8678 10.8636 18.8571H21.9091C22.4424 18.8678 22.9623 18.6817 23.3778 18.3313C23.7933 17.9809 24.0779 17.4886 24.1818 16.9405L26 6.95238H6.68182"
+                                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h2>SAPATINHO DE BEBÊ</h2>
-                <p>Tamanho 18, vermelho</p>
-                <p>Tempo de uso: 6 meses</p>
-                <p>Unissex</p>
-                <p class="font-weight-bold">R$ 25,00</p>
-                <p>Em até 5x de R$ 5,00 sem juros</p>
-                <button class="btn btn-primary">COMPRAR</button>
-            </div>
+        </nav>
+        <div class="row" id="linha">
         </div>
     </div>
+    <!-- <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">SAPATINHO DE BEBê</h5>
+              <p class="card-text">
+                <strong>Tamanho , Cor </strong> <br>                
+              </p>
+              <h5 class="card-title">DESCRIÇÃO</h5>
+              <p class="card-text">
+                <strong>Tempo de uso </strong> <br>
+                <strong>Gênero </strong> 
+              </p>
+              <p class="card-text">
+                <strong>Preço </strong> <br>
+                <strong>Parcelamento </strong> 
+              </p>
+              <button class="btn btn-primary" id="buy-button">COMPRAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    
+    
 
-    <!--Bootstrap JS -->
+    <script>
+        const buscarData = function () {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('GET', '/produto/:id', true);
+            xmlhttp.responseType = 'json';
+            xmlhttp.onload = function () {
+                var status = xmlhttp.status;
+                if (status === 200) {
+                    xmlhttp.response.if(element => {
+                        criarCard(element);
+                    });
+                } else {
+                    console.log(status, xmlhttp.response);
+                }
+            }
+            xmlhttp.send();
+        }
+
+
+        buscarData();
+
+        
+        function criarCard(produto) {
+            console.log("aqui");
+            var card = document.createElement("div");
+            card.className = "col-md-3";
+
+            var card2 = document.createElement("div");
+            card2.className = "card mb-4";
+            card.appendChild(card2);
+
+            var img = document.createElement("img");
+            img.className = "card-img-top";
+            img.src = produto["imagem"];
+            img.style.backgroundSize = "contain";
+            card2.appendChild(img);
+
+            var cardBody = document.createElement("div");
+            cardBody.className = "car-body text-center";
+
+            var desc = document.createElement("h5");
+            desc.className = "card-title";
+            desc.textContent = produto["nome"];
+
+            var price = document.createElement("p");
+            price.className = "card-text d-flex justify-content-center";
+            price.textContent = "R$" + produto["preco"];
+            price.style.color = "#84B6F4";
+
+            var button = document.createElement("button");
+            button.className = "primary primary-button mb-3";
+            button.textContent = "COMPRAR";
+            button.style.color = "white";
+            button.type = "button";
+
+            card2.appendChild(cardBody);
+            cardBody.appendChild(desc);
+            cardBody.appendChild(price);
+            cardBody.appendChild(button);
+
+            var row = document.getElementById("linha");
+            row.appendChild(card);
+        }
+
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
