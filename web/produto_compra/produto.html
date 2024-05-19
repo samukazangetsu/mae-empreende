@@ -2,6 +2,20 @@
 <html lang="pt-br">
 
 <head>
+
+    <style>
+        .caixa-produto {
+            margin : auto;
+            margin-top: 05%;
+            width: 50%; 
+            padding: 150px;
+            border: 3px solid blue;
+            background-color: white; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; 
+        }
+    </style>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mãe Empreende</title>
@@ -57,7 +71,7 @@
             <div class="card-body">
               <h5 class="card-title">SAPATINHO DE BEBê</h5>
               <p class="card-text">
-                <strong>Tamanho , Cor </strong> <br>                
+                <strong>Tamanho , Cor </strong> <br>
               </p>
               <h5 class="card-title">DESCRIÇÃO</h5>
               <p class="card-text">
@@ -75,17 +89,15 @@
       </div>
     </div> -->
     
-    
-
     <script>
         const buscarData = function () {
             var xmlhttp = new XMLHttpRequest();
-            xmlhttp.open('GET', '/produto/:id', true);
+            xmlhttp.open('GET', '/produtos/:id', true);
             xmlhttp.responseType = 'json';
             xmlhttp.onload = function () {
                 var status = xmlhttp.status;
                 if (status === 200) {
-                    xmlhttp.response.if(element => {
+                    xmlhttp.response.forEach(element => {
                         criarCard(element);
                     });
                 } else {
@@ -94,49 +106,39 @@
             }
             xmlhttp.send();
         }
-
-
         buscarData();
 
-        
+           
         function criarCard(produto) {
             console.log("aqui");
+            var cardBox = document.createElement("div");
+            card.className = "col-md-12";
             var card = document.createElement("div");
-            card.className = "col-md-3";
-
-            var card2 = document.createElement("div");
-            card2.className = "card mb-4";
-            card.appendChild(card2);
-
+            card.className = "col-md-6";
+            cardBox.appendChild(card);
             var img = document.createElement("img");
             img.className = "card-img-top";
             img.src = produto["imagem"];
             img.style.backgroundSize = "contain";
-            card2.appendChild(img);
-
+            cardBox.appendChild(img);
             var cardBody = document.createElement("div");
             cardBody.className = "car-body text-center";
-
             var desc = document.createElement("h5");
             desc.className = "card-title";
             desc.textContent = produto["nome"];
-
             var price = document.createElement("p");
             price.className = "card-text d-flex justify-content-center";
             price.textContent = "R$" + produto["preco"];
             price.style.color = "#84B6F4";
-
             var button = document.createElement("button");
             button.className = "primary primary-button mb-3";
             button.textContent = "COMPRAR";
             button.style.color = "white";
             button.type = "button";
-
-            card2.appendChild(cardBody);
+            card.appendChild(cardBody);
             cardBody.appendChild(desc);
             cardBody.appendChild(price);
             cardBody.appendChild(button);
-
             var row = document.getElementById("linha");
             row.appendChild(card);
         }
