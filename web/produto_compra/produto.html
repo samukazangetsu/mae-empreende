@@ -2,20 +2,6 @@
 <html lang="pt-br">
 
 <head>
-
-    <style>
-        .caixa-produto {
-            margin : auto;
-            margin-top: 05%;
-            width: 50%; 
-            padding: 150px;
-            border: 3px solid blue;
-            background-color: white; 
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center; 
-        }
-    </style>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mãe Empreende</title>
@@ -65,7 +51,7 @@
         <div class="row" id="linha">
         </div>
     </div>
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
@@ -87,7 +73,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
     
     <script>
         const buscarData = function () {
@@ -107,7 +93,8 @@
             xmlhttp.send();
         }
         buscarData();
-
+        
+        
            
         function criarCard(produto) {
             console.log("aqui");
