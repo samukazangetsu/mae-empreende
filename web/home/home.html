@@ -59,8 +59,9 @@
             xmlhttp.onload = function () {
                 var status = xmlhttp.status;
                 if (status === 200) {
-                    console.log(xmlhttp.response);
-                    criarCard(xmlhttp.response);
+                    xmlhttp.response.forEach(element => {
+                        criarCard(element);
+                    });
                 } else {
                     console.log(status, xmlhttp.response);
                 }
@@ -70,6 +71,8 @@
 
 
         buscarData();
+
+        
 
         var json = [
             {
