@@ -237,7 +237,7 @@ router.get("/cadastro-produto", function (req, res) {
 
 router.get("/produtos", async function (req, res) {
     console.log('Rota de produtos cadastrados acessada');
-    // res.set('Accept', 'application/json');
+    res.set('Accept', 'application/json');
     // if (app.locals.userID === undefined) {
     //     return res.redirect("/cadastro");
     // }
