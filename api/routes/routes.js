@@ -17,11 +17,6 @@ router.get("/", function (req, res) {
     res.redirect('/cadastro');
 });
 
-// router.get("/home", function (req, res) {
-//     console.log('Rota home acessada')
-//     res.sendFile('/home/home.html',{root:root});
-// });
-
 router.get("/home", async (req, res) => {
     const db = await openDb();
     try {
@@ -123,7 +118,7 @@ router.put('/usuario', async (req, res) => {
 
 //metodo ok
 router.post('/endereco', async (req, res) => {
-    
+
 });
 
 // metodo ok
@@ -131,7 +126,7 @@ router.put('/endereco', async (req, res) => {
     const { bairro, cep, logradouro, numero, complemento, cidade, estado } = req.body;
     const id = app.locals.enderecoID;
     const db = await openDb();
-    if(id === undefined){
+    if (id === undefined) {
         try {
             const enderecoID = (await db.run(queries.INSERIR_ENDERECO, [bairro, cep, logradouro, numero, complemento, cidade, estado])).lastID;
             var usuario = await db.get(queries.LISTAR_USUARIO_POR_ID, app.locals.userID);
@@ -147,14 +142,14 @@ router.put('/endereco', async (req, res) => {
         try {
             console.log(`Novos dados do Endereco:`, req.body);
             await db.run(queries.ATUALIZAR_ENDERECO, [bairro, cep, logradouro, numero, complemento, cidade, estado, id]);
-    
+
             console.log(`Endereço atualizado com sucesso.`);
             res.status(200).json({ message: 'Endereço atualizado com sucesso.' });
         } catch (error) {
             console.error('Erro ao atualizar endereço:', error);
             res.status(500).json({ error: 'Erro interno do servidor.' });
         }
-    }   
+    }
 });
 
 router.get('/endereco', async (req, res) => {
@@ -184,8 +179,10 @@ router.get('/endereco', async (req, res) => {
 // ---------------------------------------------------------------------------------------
 
 //metodo ok
-router.post('/produto', async (req, res) => {
+router.post('/cadastro-produto', async (req, res) => {
+    const enderecoID = app.locals.enderecoID;
     const { nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero } = req.body;
+    req.body
     try {
         const db = await openDb();
         const produtoID = (await db.run(queries.INSERIR_PRODUTO, [nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero])).lastID;
@@ -243,21 +240,11 @@ router.get('/comprar_produto/:id', async (req, res) => {
 router.get("/cadastro-produto", function (req, res) {
     console.log('Rota cadastro produto acessada');
     res.set('Accept', 'application/json');
-    if (app.locals.userID === undefined) {
-        return res.redirect("/cadastro");
-    }
+    // if (app.locals.userID === undefined) {
+    //     return res.redirect("/cadastro");
+    // }
     res.sendFile('/produto/cadastro_produto.html', { root: root });
 });
-
-/* router.get("/produtos", function (req, res) {
-    console.log('Rota de produtos cadastrados acessada');
-    res.set('Accept', 'application/json');
-    if (app.locals.userID === undefined) {
-        return res.redirect("/cadastro");
-    }
-    res.sendFile('/produto/produtos_cadastrados.html', { root: root });
-});
- */
 
 router.get("/produtos", async function (req, res) {
     console.log('Rota de produtos cadastrados acessada');
@@ -268,6 +255,7 @@ router.get("/produtos", async function (req, res) {
     try {
         const db = await openDb();
         const produtos = await db.all(queries.LISTAR_TODOS_PRODUTOS);
+        console.log(produtos);
         res.json(produtos);
     } catch (error) {
         console.error(error.message);
