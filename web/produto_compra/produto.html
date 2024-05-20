@@ -28,7 +28,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <img src="caminho-para-imagem-do-sapatinho.jpg" alt="Sapatinho de Bebê" id="img">
+                        <img src="caminho-para-imagem-do-sapatinho.jpg" class="cardImagem" alt="Sapatinho de Bebê" id="img">
                     </div>
                     <div class="col-md-6 product-info">
                         <h2 id="nome">Sapatinho de Bebê</h2>
@@ -48,8 +48,7 @@
                             </ul>
                         </div>
                         
-
-                        <button class="primary-button"><span>COMPRAR</span></button>
+                        <button onclick="finalizarCompra()" class ="primary-button" ><span>COMPRAR</span></button>
                     </div>
                 </div>
             </div>
@@ -86,6 +85,7 @@
         }
         buscarData();
 
+         finalizarCompra = ()=> window.location.href = '/compra_finalizada';
 
     </script>
 

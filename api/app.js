@@ -33,6 +33,7 @@ app.put('/produto', router);
 
 app.get('/produtos', router);
 app.get('/comprar_produto', router);
+app.get('/compra_finalizada', router);
 
 app.use('/', router);
 app.get('/cadastro-produto', router);

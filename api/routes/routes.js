@@ -263,6 +263,9 @@ router.get("/produtos", async function (req, res) {
     }
 });
 
-
+router.get("/compra_finalizada", function (req, res) {
+    console.log('Rota compra finalizada acessada')
+    res.sendFile('/produto_compra/compra_finalizada.html', { root: root });
+});
 
 export default router;
