@@ -55,7 +55,7 @@ WHERE endereco_id = ?
 `,
 
 LISTAR_TODOS_PRODUTOS: `
-  SELECT nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero FROM Produtos;
+  SELECT id, nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero FROM Produtos;
 `,
 
 };

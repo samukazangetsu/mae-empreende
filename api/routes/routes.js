@@ -214,12 +214,23 @@ router.put('/produto/:id', async (req, res) => {
 
 //metodo ok
 router.get('/produto/:id', async (req, res) => {
+    
+    try {
+        res.sendFile('/produto_compra/produto.html',{root:root})        
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send(`Erro: ${error.message}`);
+    }
+});
+
+//metodo ok
+router.get('/comprar_produto/:id', async (req, res) => {
     const id = req.params.id;
     try {
         const db = await openDb();
         const produto = await db.get(queries.LISTAR_PRODUTO_POR_ID, [id]);
         if (produto) {
-            res.json(produto);
+             res.json(produto);
         } else {
             res.status(404).send("Produto não encontrado.");
         }
@@ -263,5 +274,7 @@ router.get("/produtos", async function (req, res) {
         res.status(500).send(`Erro ao obter produtos: ${error.message}`);
     }
 });
+
+
 
 export default router;

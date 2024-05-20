@@ -101,6 +101,9 @@
             button.textContent = "COMPRAR";
             button.style.color = "white";
             button.type = "button";
+            button.onclick = function(){
+                window.location.href = "http://localhost:3000/produto/"+produto['id'];
+            };
             card2.appendChild(cardBody);
             cardBody.appendChild(desc);
             cardBody.appendChild(price);
@@ -108,6 +111,7 @@
             var row = document.getElementById("linha");
             row.appendChild(card);
         }
+        
         
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

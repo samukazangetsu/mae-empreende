@@ -32,6 +32,7 @@ app.post('/produto', router);
 app.put('/produto', router);
 
 app.get('/produtos', router);
+app.get('/comprar_produto', router);
 
 app.use('/', router);
 app.get('/cadastro-produto', router);
