@@ -2,83 +2,115 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/cadastro.css">
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Cadastro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/cadastro.css">
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Cadastro</title>
 </head>
 
 <body>
-    <nav class="navbar text-start">
-        <div id="menu" class="ms-5 me-5 p-2 container-fluid">
-            <h1 class="text-start nav-item"><a id="logo" href="/" class="navbar-brand">Mãe Empreende</a></h1>
-            <form id="search" class="nav-item">
-                <input class="form-control me-2 container" type="search" placeholder="Buscar produtos"
-                    aria-label="Search">
-            </form>
-            
-        </div>
-    </nav>
+  <nav class="navbar text-start">
+    <div id="menu" class="ms-5 me-5 p-2 container-fluid">
+      <h1 class="text-start nav-item"><a id="logo" href="/" class="navbar-brand">Mãe Empreende</a></h1>
+      <form id="search" class="nav-item">
+        <input class="form-control me-2 container" type="search" placeholder="Buscar produtos" aria-label="Search">
+      </form>
 
-    <div class="container mt-5">
-        <h2 class="mb-4">Registro de Produto</h2>
-        <form class="needs-validation" method="POST">
-          <div class="form-group">
-            <label for="nomeProduto">Nome do Produto</label>
-            <input type="text" class="form-control" id="nomeProduto" placeholder="Insira o nome do produto">
-          </div>
-          <div class="form-group">
-            <label for="tempoUso">Tempo de Uso</label>
-            <input type="text" class="form-control" id="tempoUso" placeholder="Insira o tempo de uso">
-          </div>
-          <div class="form-group">
-            <label for="tamanho">Tamanho</label>
-            <input type="text" class="form-control" id="tamanho" placeholder="Insira o tamanho">
-          </div>
-          <div class="form-group">
-            <label for="fotoPrincipal">Foto Principal</label>
-            <input type="file" class="form-control-file" id="fotoPrincipal">
-          </div>
-          <div class="form-group">
-            <label for="descricaoProduto">Descrição do Produto:</label>
-            <textarea class="form-control" id="descricaoProduto" rows="3"></textarea>
-          </div>
-          <h4>VALOR E FORMAS DE PAGAMENTO</h4>
-          <p>Preço <span class="font-weight-bold">R$ 15,00</span></p>
-          <p>Formas de Pagamento: Crédito Débito Pix</p>
-          <div class="text-center mb-5">
-            <button onclick="cadastrarProduto()" type="submit" class="primary-button"><div class="m-2"><span>CADASTRAR</span></div></button>
-          </div>
-        </form>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2 class="mb-4">Registro de Produto</h2>
+    <form onsubmit="return false" action="/cadastro-produto" method="POST" id="form" class="">
+      <div class="form-group mb-3">
+        <label for="nomeProduto">Nome do Produto</label>
+        <input type="text" class="form-control" id="nomeProduto" placeholder="Insira o nome do produto" required>
       </div>
-    <footer>
-        <script>
-            function cadastrarProduto() {
+      <div class="form-group mb-3">
+        <label for="tempoUso">Tempo de Uso</label>
+        <input type="text" class="form-control" id="tempoUso" placeholder="Insira o tempo de uso">
+      </div>
+      <div class="form-group mb-3">
+        <label for="tamanho">Tamanho</label>
+        <input type="text" class="form-control" id="tamanho" placeholder="Insira o tamanho">
+      </div>
+      <div class="form-group mb-3">
+        <label for="fotoPrincipal">Foto Principal</label>
+        <input type="file" class="" id="imagem">
+      </div>
+      <h4>VALOR E FORMAS DE PAGAMENTO</h4>
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">$</span>
+        </div>
+        <input aria-label="Preço" id="preco" aria-describedby="basic-addon1" type="number" min="1" step="any"
+          class="form-control" id="tamanho" placeholder="Insira o preço">
+      </div>
 
-                var forms = document.getElementsByClassName('needs-validation');
+      <p>Formas de Pagamento: Crédito, Débito e Pix</p>
+      <div class="text-center mb-5">
+        <button type="submit" onclick="cadastrarProduto()" class="primary-button" title="button">
+          <div class="m-2"><span>CADASTRAR</span></div>
+        </button>
+      </div>
+    </form>
 
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-                if (validation != false) {
-                    const formData = new FormData(validation.elements);
-                    const data = Array.from(formData.entries()).reduce((memo, [key, value]) => ({
-                        ...memo,
-                        [key]: value,
-                    }), {});
-                    console.log(JSON.stringify(data));
-                    forms.submit();
-                }
-            }
-        </script>
-    </footer>
+  </div>
+  <footer>
+    <script>
+      const enviarData = function (data, url) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('POST', '/cadastro-produto', true);
+        xmlhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        var json = JSON.stringify(data);
+        console.log(json);
+        xmlhttp.send(json);
+      }
+      function cadastrarProduto() {
+        var forms = document.getElementById('form');
+
+        var validation = Array.prototype.filter.call(forms, function (form) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+        if (validation == false) {
+          console.log('AQUI');
+          const nomeProduto = document.getElementById('nomeProduto').value;
+          const tempoUso = document.getElementById('tempoUso').value;
+          const tamanho = document.getElementById('tamanho').value;
+          const preco = document.getElementById('preco').value;
+
+          const fotoPrincipalInput = document.getElementById('imagem');
+          console.log('FotoInput:', fotoPrincipalInput);
+          const fotoPrincipalFile = fotoPrincipalInput.files[0];
+          console.log('FotoFile:', fotoPrincipalFile);
+
+          const reader = new FileReader();
+          reader.onload = function (event) {
+
+            const fotoPrincipalBase64 = event.target.result;
+            console.log('base64:', fotoPrincipalBase64);
+            console.log('Dados do produto:', produto);
+            const produto = {
+              nome: nomeProduto,
+              uso: tempoUso,
+              tamanho: tamanho,
+              preco: preco,
+              imagem: fotoPrincipalBase64,
+            };
+            enviarData(produto);
+          }
+
+        }
+      }
+    </script>
+  </footer>
 </body>
 
 </html>

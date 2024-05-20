@@ -33,6 +33,7 @@ app.put('/produto', router);
 
 app.use('/', router);
 app.get('/cadastro-produto', router);
+app.post('/cadastro-produto', router);
 app.get('/produtos-cadastrados', router);
 
 app.listen(port, () => {
