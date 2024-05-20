@@ -31,6 +31,8 @@ app.get('/produto', router);
 app.post('/produto', router);
 app.put('/produto', router);
 
+app.get('/produtos', router);
+
 app.use('/', router);
 app.get('/cadastro-produto', router);
 app.get('/produtos-cadastrados', router);

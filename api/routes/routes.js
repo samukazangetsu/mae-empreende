@@ -17,9 +17,21 @@ router.get("/", function (req, res) {
     res.redirect('/cadastro');
 });
 
-router.get("/home", function (req, res) {
+// router.get("/home", function (req, res) {
+//     console.log('Rota home acessada')
+//     res.sendFile('/home/home.html',{root:root});
+// });
+
+router.get("/home", async (req, res) => {
+    const db = await openDb();
+    try {
+        await db.run(queries.INSERIR_PRODUTO, ['Sapato', "imagem", 35.00, 1, '42', 'vermelho', '3 anos', 'masculino']);
+        console.log('sucesso');
+    } catch (error) {
+        console.log(error);
+    }   
     console.log('Rota home acessada')
-    res.sendFile('/home/home.html',{root:root});
+    res.sendFile('/home/home.html', { root: root });
 });
 
 router.get("/cadastro", function (req, res) {
@@ -239,9 +251,9 @@ router.get("/cadastro-produto", function (req, res) {
 router.get("/produtos", async function (req, res) {
     console.log('Rota de produtos cadastrados acessada');
     res.set('Accept', 'application/json');
-    if (app.locals.userID === undefined) {
-        return res.redirect("/cadastro");
-    }
+    // if (app.locals.userID === undefined) {
+    //     return res.redirect("/cadastro");
+    // }
     try {
         const db = await openDb();
         const produtos = await db.all(queries.LISTAR_TODOS_PRODUTOS);

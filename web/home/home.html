@@ -59,6 +59,7 @@
             xmlhttp.onload = function () {
                 var status = xmlhttp.status;
                 if (status === 200) {
+                    console.log(xmlhttp.response);
                     xmlhttp.response.forEach(element => {
                         criarCard(element);
                     });
@@ -72,43 +73,7 @@
 
         buscarData();
 
-        
-
-        var json = [
-            {
-                "id": 1,
-                "nome": "Camiseta Esportiva",
-                "imagem": "https://th.bing.com/th/id/R.3734afa520bcd0f80cedccee7e98625f?rik=Qf0DRz9uBMyzDw&riu=http%3a%2f%2fsearchengineland.com%2ffigz%2fwp-content%2fseloads%2f2014%2f07%2fgoogle-logo-black-fade-1920-800x450.jpg&ehk=sVC8eg9%2f5lHpG7BaSfuSZQGJLbfDfVyF%2fmK83h8TMq0%3d&risl=&pid=ImgRaw&r=0",
-                "preco": 59.99,
-                "idUsuario": 101,
-                "tamanho": "M",
-                "cor": "azul",
-                "tempoUso": "3 meses",
-                "genero": "unissex"
-            },
-            {
-                "id": 2,
-                "nome": "Tênis de Corrida",
-                "imagem": "url_da_imagem_tenis",
-                "preco": 120.00,
-                "idUsuario": 102,
-                "tamanho": "42",
-                "cor": "preto",
-                "tempoUso": "6 meses",
-                "genero": "masculino"
-            },
-            {
-                "id": 3,
-                "nome": "Relógio Inteligente",
-                "imagem": "url_da_imagem_relogio",
-                "preco": 199.90,
-                "idUsuario": 103,
-                "tamanho": "único",
-                "cor": "prata",
-                "tempoUso": "1 ano",
-                "genero": "feminino"
-            }
-        ];
+              
 
         function criarCard(produto) {
             console.log("aqui");
@@ -143,9 +108,7 @@
             var row = document.getElementById("linha");
             row.appendChild(card);
         }
-        json.forEach(element => {
-            criarCard(element);
-        });
+        
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
