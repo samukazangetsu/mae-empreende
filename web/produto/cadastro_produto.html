@@ -24,18 +24,23 @@
 
   <div class="container mt-5">
     <h2 class="mb-4">Registro de Produto</h2>
-    <form onsubmit="return false" action="/cadastro-produto" method="POST" id="form" class="">
+    <form onsubmit="return true" action="/cadastro-produto" method="POST" id="form" class="needs-validation">
       <div class="form-group mb-3">
-        <label for="nomeProduto">Nome do Produto</label>
-        <input type="text" class="form-control" id="nomeProduto" placeholder="Insira o nome do produto" required>
+        <label for="nome">Nome do Produto</label>
+        <input type="text" class="form-control" id="nome" name="nome"
+          placeholder="Insira o nome do produto" required>
       </div>
       <div class="form-group mb-3">
         <label for="tempoUso">Tempo de Uso</label>
-        <input type="text" class="form-control" id="tempoUso" placeholder="Insira o tempo de uso">
+        <input type="text" class="form-control" id="tempoUso" name="tempoUso" placeholder="Insira o tempo de uso" required>
       </div>
       <div class="form-group mb-3">
         <label for="tamanho">Tamanho</label>
-        <input type="text" class="form-control" id="tamanho" placeholder="Insira o tamanho">
+        <input type="text" class="form-control" id="tamanho" name="tamanho" placeholder="Insira o tamanho">
+      </div>
+      <div class="form-group mb-3">
+        <label for="cor">Cor</label>
+        <input type="text" class="form-control" id="cor" name="cor" placeholder="Insira a cor">
       </div>
       <div class="form-group mb-3">
         <label for="fotoPrincipal">Foto Principal</label>
@@ -47,7 +52,7 @@
           <span class="input-group-text" id="basic-addon1">$</span>
         </div>
         <input aria-label="Preço" id="preco" aria-describedby="basic-addon1" type="number" min="1" step="any"
-          class="form-control" id="tamanho" placeholder="Insira o preço">
+          class="form-control" id="tamanho" placeholder="Insira o preço" name="preco">
       </div>
 
       <p>Formas de Pagamento: Crédito, Débito e Pix</p>
@@ -61,17 +66,8 @@
   </div>
   <footer>
     <script>
-      const enviarData = function (data, url) {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open('POST', '/cadastro-produto', true);
-        xmlhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        var json = JSON.stringify(data);
-        console.log(json);
-        xmlhttp.send(json);
-      }
       function cadastrarProduto() {
-        var forms = document.getElementById('form');
-
+        var forms = document.getElementsByClassName('needs-validation');
         var validation = Array.prototype.filter.call(forms, function (form) {
           if (form.checkValidity() === false) {
             event.preventDefault();
@@ -79,34 +75,14 @@
           }
           form.classList.add('was-validated');
         }, false);
-        if (validation == false) {
-          console.log('AQUI');
-          const nomeProduto = document.getElementById('nomeProduto').value;
-          const tempoUso = document.getElementById('tempoUso').value;
-          const tamanho = document.getElementById('tamanho').value;
-          const preco = document.getElementById('preco').value;
-
-          const fotoPrincipalInput = document.getElementById('imagem');
-          console.log('FotoInput:', fotoPrincipalInput);
-          const fotoPrincipalFile = fotoPrincipalInput.files[0];
-          console.log('FotoFile:', fotoPrincipalFile);
-
-          const reader = new FileReader();
-          reader.onload = function (event) {
-
-            const fotoPrincipalBase64 = event.target.result;
-            console.log('base64:', fotoPrincipalBase64);
-            console.log('Dados do produto:', produto);
-            const produto = {
-              nome: nomeProduto,
-              uso: tempoUso,
-              tamanho: tamanho,
-              preco: preco,
-              imagem: fotoPrincipalBase64,
-            };
-            enviarData(produto);
-          }
-
+        if (validation == true) {
+          const formData = new FormData(validation.elements);
+          const data = Array.from(formData.entries()).reduce((memo, [key, value]) => ({
+            ...memo,
+            [key]: value,
+          }), {});
+          console.log(JSON.stringify(data));
+          console.log(formData);
         }
       }
     </script>

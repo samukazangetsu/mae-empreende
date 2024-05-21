@@ -20,11 +20,11 @@ router.get("/", function (req, res) {
 router.get("/home", async (req, res) => {
     const db = await openDb();
     try {
-        await db.run(queries.INSERIR_PRODUTO, ['Sapato', "imagem", 35.00, 1, '42', 'vermelho', '3 anos', 'masculino']);
+        await db.run(queries.INSERIR_PRODUTO, ['Sapato', "assets/sapato.jpg", 35.00, 1, '42', 'vermelho', '3 anos', 'masculino']);
         console.log('sucesso');
     } catch (error) {
         console.log(error);
-    }   
+    }
     console.log('Rota home acessada')
     res.sendFile('/home/home.html', { root: root });
 });
@@ -180,14 +180,17 @@ router.get('/endereco', async (req, res) => {
 
 //metodo ok
 router.post('/cadastro-produto', async (req, res) => {
-    const enderecoID = app.locals.enderecoID;
-    const { nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero } = req.body;
-    req.body
+    const idUsuario = app.locals.userID;
+
+    const { nome, preco, tamanho, cor, tempoUso, genero } = req.body;
+    console.log(req.body);
     try {
         const db = await openDb();
-        const produtoID = (await db.run(queries.INSERIR_PRODUTO, [nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero])).lastID;
+        for (let i = 0; i < 5; i++) {
+            await db.run(queries.INSERIR_PRODUTO, [nome, 'assets/sapato.jpg', preco, idUsuario, tamanho, cor, tempoUso, genero]);
+        }
         console.log(`Produto inserido com sucesso`);
-        res.status(201).send(`Produto inserido com sucesso`);
+        res.redirect('/produtos_cadastrados');
     } catch (error) {
         console.error(error.message);
         res.status(500).send(`Erro ao inserir produto: ${error.message}`);
@@ -211,9 +214,9 @@ router.put('/produto/:id', async (req, res) => {
 
 //metodo ok
 router.get('/produto/:id', async (req, res) => {
-    
+
     try {
-        res.sendFile('/produto_compra/produto.html',{root:root})        
+        res.sendFile('/produto_compra/produto.html', { root: root })
     } catch (error) {
         console.error(error.message);
         res.status(500).send(`Erro: ${error.message}`);
@@ -227,7 +230,7 @@ router.get('/comprar_produto/:id', async (req, res) => {
         const db = await openDb();
         const produto = await db.get(queries.LISTAR_PRODUTO_POR_ID, [id]);
         if (produto) {
-             res.json(produto);
+            res.json(produto);
         } else {
             res.status(404).send("Produto não encontrado.");
         }
@@ -240,23 +243,50 @@ router.get('/comprar_produto/:id', async (req, res) => {
 router.get("/cadastro-produto", function (req, res) {
     console.log('Rota cadastro produto acessada');
     res.set('Accept', 'application/json');
-    // if (app.locals.userID === undefined) {
-    //     return res.redirect("/cadastro");
-    // }
+    if (app.locals.userID === undefined) {
+        return res.redirect("/cadastro");
+    }
     res.sendFile('/produto/cadastro_produto.html', { root: root });
 });
 
 router.get("/produtos", async function (req, res) {
     console.log('Rota de produtos cadastrados acessada');
     res.set('Accept', 'application/json');
-    // if (app.locals.userID === undefined) {
-    //     return res.redirect("/cadastro");
-    // }
+    if (app.locals.userID === undefined) {
+        return res.redirect("/cadastro");
+    }
     try {
         const db = await openDb();
         const produtos = await db.all(queries.LISTAR_TODOS_PRODUTOS);
         console.log(produtos);
         res.json(produtos);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send(`Erro ao obter produtos: ${error.message}`);
+    }
+});
+
+router.get("/produtos_cadastrados", async function (req, res) {
+    if (app.locals.userID === undefined) {
+        return res.redirect("/cadastro");
+    }
+    try {
+        return res.sendFile('/produto/produtos_cadastrados.html', { root: root });
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+router.get("/listar_produtos_usuario", async function (req, res) {
+    console.log('Rota de produtos do usuário acessada');
+    if (app.locals.userID === undefined) {
+        return res.redirect("/cadastro");
+    }
+    try {
+        const db = await openDb();
+        const produtos = await db.all(queries.LISTAR_PRODUTOS_USUARIO, [5]);
+        console.log(produtos);
+        return res.json(produtos);
     } catch (error) {
         console.error(error.message);
         res.status(500).send(`Erro ao obter produtos: ${error.message}`);

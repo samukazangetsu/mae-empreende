@@ -58,5 +58,9 @@ LISTAR_TODOS_PRODUTOS: `
   SELECT id, nome, imagem, preco, idUsuario, tamanho, cor, tempoUso, genero FROM Produtos;
 `,
 
+LISTAR_PRODUTOS_USUARIO: `
+  SELECT id, nome, imagem, preco, tamanho, cor, tempoUso, genero FROM Produtos WHERE idUsuario = ?;
+`,
+
 };
 
